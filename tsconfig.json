@@ -9,8 +9,6 @@
       "@constants/*": ["src/constant/*"],
       "@hooks/*": ["src/hooks/*"],
       "@services/*": ["src/services/*"],
-      "@api/*": ["src/api/*"],
-      "@redux": ["src/redux"],
       "@firebase": ["src/firebase"]
     }
   }

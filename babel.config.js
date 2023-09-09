@@ -10,8 +10,6 @@ module.exports = {
           '@components': './src/components',
           '@constants': './src/constant',
           '@hooks': './src/hooks',
-          '@api': './src/api',
-          '@redux': './src/redux',
           '@screens': './src/screens',
           '@services': './src/services',
           '@firebase': './src/firebase',

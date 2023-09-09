@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "614149550639",
+    "project_id": "fir-app-791ab",
+    "storage_bucket": "fir-app-791ab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:614149550639:android:3ab3732b65ea780c7e0cda",
+        "android_client_info": {
+          "package_name": "com.dndfirebaseapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "614149550639-ue4of697j8chp8f34t72uqqn3fmmegp1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dndfirebaseapp",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "614149550639-tjqsovnakkqpshje82q154pkqbg2fjpl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGWlHcS8k6hJ0_PlEqukiWYhSHv42c-as"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "614149550639-tjqsovnakkqpshje82q154pkqbg2fjpl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

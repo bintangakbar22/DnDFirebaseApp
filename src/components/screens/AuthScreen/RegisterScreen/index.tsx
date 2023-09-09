@@ -8,21 +8,28 @@ import {
 import React from 'react';
 import Fonts from '@constants/fonts';
 import Colors from '@constants/colors';
-import FastImage from 'react-native-fast-image';
-import {Logo} from '@assets/images';
-import {Button, Input, MainText, MainView} from '@components/atoms';
+import {
+  Button,
+  Input,
+  LoadingIndicator,
+  MainText,
+  MainView,
+} from '@components/atoms';
 import {Formik} from 'formik';
 import {useRegisterScreen} from './useRegisterScreen';
 
 const RegisterScreen = () => {
-  const {_handlerNavigateToLogin, _handlerRegister, registerValidation} =
-    useRegisterScreen();
+  const {
+    _handlerNavigateToLogin,
+    _handlerRegister,
+    registerValidation,
+    isLoading,
+  } = useRegisterScreen();
 
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.contentContainerStyle}>
         <MainView flexDirection="row" alignItems="center">
-          <FastImage source={Logo} style={styles.image} />
           <Text style={styles.title}>DnD App</Text>
         </MainView>
         <Text style={styles.welcomeTitle}>
@@ -67,6 +74,7 @@ const RegisterScreen = () => {
           </MainText>
         </TouchableOpacity>
       </ScrollView>
+      {isLoading ? <LoadingIndicator /> : null}
     </View>
   );
 };
@@ -74,11 +82,14 @@ const RegisterScreen = () => {
 export {RegisterScreen};
 
 const styles = StyleSheet.create({
-  contentContainerStyle: {flexGrow: 1, alignItems: 'center'},
+  contentContainerStyle: {
+    flexGrow: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   container: {
     flex: 1,
     backgroundColor: Colors.white,
-    justifyContent: 'center',
     padding: 16,
     flexGrow: 1,
   },

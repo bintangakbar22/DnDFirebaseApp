@@ -11,7 +11,7 @@
       "@services/*": ["src/services/*"],
       "@api/*": ["src/api/*"],
       "@redux": ["src/redux"],
-      "@firebase": ["src/firebase/*"]
+      "@firebase": ["src/firebase"]
     }
   }
 }

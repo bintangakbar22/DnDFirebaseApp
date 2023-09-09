@@ -1,8 +1,8 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+import {showErrorToast, showSuccessToast} from '@constants/functional';
+import {registerWithEmailPassword, IPayloadAuth} from '@firebase';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-
-import {useCallback, useEffect} from 'react';
+import {useState} from 'react';
 import * as yup from 'yup';
 
 const registerValidation = yup.object().shape({
@@ -18,26 +18,23 @@ const registerValidation = yup.object().shape({
       /^(?=.*[A-Z])/,
       'Password must contain at least one uppercase letter',
     ),
-  first_name: yup.string().required('Nama Depan is Required!'),
-  last_name: yup.string().required('Nama Belakang is Required!'),
-  confirmPassword: yup
-    .string()
-    .required('Confirm Password is Required!')
-    .oneOf([yup.ref('password')], 'Password Tidak Sama'),
 });
 
 const useRegisterScreen = () => {
   const navigation =
     useNavigation<StackNavigationProp<ParamList, 'RegisterScreen'>>();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const _handlerRegister = useCallback(values => {
-    const newValues = {
-      email: values.email,
-      password: values.password,
-      first_name: values.first_name,
-      last_name: values.last_name,
-    };
-  }, []);
+  const _handlerRegister = async (values: IPayloadAuth) => {
+    setIsLoading(true);
+    registerWithEmailPassword(values)
+      .then(() => {
+        showSuccessToast('Register Berhasil!!');
+        _handlerNavigateToLogin();
+      })
+      .catch((_: Error) => showErrorToast(_?.message))
+      .finally(() => setIsLoading(false));
+  };
 
   const _handlerNavigateToLogin = () => {
     navigation.navigate('LoginScreen');
@@ -46,6 +43,7 @@ const useRegisterScreen = () => {
     _handlerNavigateToLogin,
     _handlerRegister,
     registerValidation,
+    isLoading,
   };
 };
 

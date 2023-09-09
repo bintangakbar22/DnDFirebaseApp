@@ -18,7 +18,7 @@ const SplashScreen = () => {
   const [alreadyLogged, setAlreadyLogged] = useState<boolean>(false);
 
   const _handlerGetLogged = async () => {
-    const token = await AsyncStorage.getItem(Keys.token);
+    const token = await AsyncStorage.getItem(Keys.dataUser);
     if (token && token !== '') {
       setAlreadyLogged(true);
     }
@@ -42,9 +42,8 @@ const SplashScreen = () => {
 
   return (
     <MainView style={styles.container}>
-      <FastImage source={Logo} style={styles.image} />
-      <Text style={styles.title}>SIMS PPOB</Text>
-      <Text style={styles.titleName}>Muhammad Bintang Al Akbar</Text>
+      <Text style={styles.title}>Dnd App</Text>
+      <Text style={styles.titleName}>[Muhammad Bintang Al Akbar]</Text>
     </MainView>
   );
 };

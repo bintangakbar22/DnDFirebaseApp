@@ -5,32 +5,50 @@ import Colors from '@constants/colors';
 import Fonts from '@constants/fonts';
 import {convertToRupiah} from '@constants/functional';
 import {generalStyles} from '@constants/styles';
-import dayjs from 'dayjs';
+import {
+  ICollectionData,
+  Price,
+  Product,
+  Transaction,
+  Type,
+  User,
+} from '@components/screens/HomeScreen/type';
 
 interface Iprops {
-  date: string | null | undefined;
-  value: number | null | undefined;
-  desc: string | null | undefined;
-  type: 'TOPUP' | 'PAYMENT' | null;
+  obj: Transaction;
+  data: ICollectionData;
 }
 const TransactionCard = (props: Iprops) => {
+  const product = props?.data?.Product?.find(
+    (prd: Product) => prd?.id === props?.obj?.productId,
+  );
+  const types = props?.data?.Types?.find(
+    (typ: Type) => typ?.id === product?.typeId,
+  );
+  const users = props?.data?.Users?.find(
+    (usr: User) => usr?.id === props?.obj?.userId,
+  );
+  const prices = props?.data?.Prices?.find(
+    (prc: Price) => prc?.productId === product?.id,
+  );
+
   return (
     <View style={styles.card}>
       <MainView>
+        <MainText style={styles.balance} color={types?.color}>
+          {product?.name} ({types?.name})
+        </MainText>
         <MainText
-          color={
-            props?.type === 'TOPUP' ? Colors.success.base : Colors.danger.base
-          }
-          style={styles.balance}>
-          {`${props?.type === 'TOPUP' ? '+' : '-'} ${convertToRupiah(
-            props?.value ?? 0,
-          )}`}
+          style={styles.balance}
+          paddingTop={12}
+          color={Colors.success.base}>
+          {convertToRupiah(prices?.points ?? 0 * props?.obj?.total ?? 0)}
         </MainText>
         <MainText paddingTop={12}>
-          {dayjs(props?.date).format('DD MMMM YYYY HH:mm WIB')}
+          User : {users?.name} ({users?.id})
         </MainText>
       </MainView>
-      <MainText>{props?.desc}</MainText>
+      <MainText color={types?.color}>Transaction #{props?.obj?.id}</MainText>
     </View>
   );
 };

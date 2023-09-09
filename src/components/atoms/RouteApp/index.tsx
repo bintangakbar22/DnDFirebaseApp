@@ -19,10 +19,10 @@ type NavigatorProps = {
 export const Navigator: React.FC<NavigatorProps> = () => {
   const navigation: any = useNavigation();
 
-  //handle 401
+  //handle No User
   const screenListeners = () => ({
     state: async () => {
-      const token = await AsyncStorage.getItem(Keys.token);
+      const dataUser = await AsyncStorage.getItem(Keys.dataUser);
       const currentRouteName = navigation?.getCurrentRoute()?.name;
       const listScreenDontNeetAuth = [
         'SplashScreen',
@@ -31,7 +31,7 @@ export const Navigator: React.FC<NavigatorProps> = () => {
       ];
       const isNotAuthScreen =
         listScreenDontNeetAuth?.includes(currentRouteName);
-      if (!isNotAuthScreen && !token) {
+      if (!isNotAuthScreen && !dataUser) {
         navigation.navigate('SplashScreen', {});
         await AsyncStorage.clear();
       }

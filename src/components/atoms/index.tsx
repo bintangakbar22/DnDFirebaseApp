@@ -3,7 +3,6 @@ export * from './ToastContainer';
 export * from './Button';
 export * from './MainComponent';
 export * from './Header';
-export * from './BalanceCard';
 export * from './LoadingIndicator';
 export * from './Input';
 export * from './PopUp';

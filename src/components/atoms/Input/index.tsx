@@ -113,7 +113,7 @@ const Input = ({
 const styles = StyleSheet.create({
   label: {
     width: '100%',
-    alignSelf: 'center',
+    alignSelf: 'flex-start',
     marginBottom: 8,
     fontFamily: Fonts.BoldPoppins,
     fontWeight: '800',

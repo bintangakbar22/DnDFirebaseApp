@@ -2,13 +2,25 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import Fonts from '@constants/fonts';
 import Colors from '@constants/colors';
-import {Button, Input, MainText, MainView} from '@components/atoms';
+import {
+  Button,
+  Input,
+  LoadingIndicator,
+  MainText,
+  MainView,
+} from '@components/atoms';
 import {Formik} from 'formik';
 import {useLoginScreen} from './useLoginScreen';
+import {GoogleSigninButton} from 'react-native-google-signin';
 
 const LoginScreen = () => {
-  const {loginValidation, _handlerLogin, _handlerNavigateToRegistration} =
-    useLoginScreen();
+  const {
+    loginValidation,
+    _handlerLogin,
+    _handlerNavigateToRegistration,
+    _handlerWithGoogle,
+    isLoading,
+  } = useLoginScreen();
 
   return (
     <View style={styles.container}>
@@ -47,12 +59,20 @@ const LoginScreen = () => {
           </MainView>
         )}
       </Formik>
+      <GoogleSigninButton
+        style={styles.googleButton}
+        size={GoogleSigninButton.Size.Wide}
+        color={GoogleSigninButton.Color.Dark}
+        onPress={_handlerWithGoogle}
+      />
+
       <TouchableOpacity onPress={_handlerNavigateToRegistration}>
         <MainText>
           {`belum punya akun? registrasi`}{' '}
           <MainText color={Colors.danger.base}>di sini</MainText>
         </MainText>
       </TouchableOpacity>
+      {isLoading ? <LoadingIndicator /> : null}
     </View>
   );
 };
@@ -97,5 +117,12 @@ const styles = StyleSheet.create({
   image: {
     width: 30,
     height: 30,
+  },
+  googleButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    height: 60,
+    marginBottom: 16,
   },
 });

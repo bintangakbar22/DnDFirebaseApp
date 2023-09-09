@@ -8,6 +8,7 @@ export const generalStyles = StyleSheet.create({
   },
   contentContainerStyle: {
     flexGrow: 1,
+    paddingBottom: 200,
   },
   contentFlex: {flex: 1},
   row: {flexDirection: 'row'},
@@ -78,5 +79,13 @@ export const generalStyles = StyleSheet.create({
   },
   textAlignCenter: {
     textAlign: 'center',
+  },
+  card: {
+    padding: 16,
+    backgroundColor: Colors.white,
+    borderRadius: 12,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: 8,
   },
 });

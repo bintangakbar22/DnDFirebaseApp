@@ -2,7 +2,7 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Colors from '@constants/colors';
-import {HomeScreen, TopUpScreen, TransactionScreen} from '@components/screens';
+import {DnDScreen, HomeScreen, InputScreen} from '@components/screens';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const Tab = createBottomTabNavigator();
@@ -20,8 +20,8 @@ const BottomTabNavigatior = () => {
           if (route.name === 'InputScreen') {
             return <Icon name={'cash-100'} size={size} color={color} />;
           }
-          if (route.name === 'DnDcreen') {
-            return <Icon name={'card-outline'} size={size} color={color} />;
+          if (route.name === 'DnDScreen') {
+            return <Icon name={'drag'} size={size} color={color} />;
           }
         },
         tabBarActiveTintColor: Colors.black,
@@ -48,12 +48,12 @@ const BottomTabNavigatior = () => {
       />
       <Tab.Screen
         name="InputScreen"
-        component={TopUpScreen}
+        component={InputScreen}
         options={{tabBarLabel: 'Input'}}
       />
       <Tab.Screen
-        name="TransactionScreen"
-        component={TransactionScreen}
+        name="DnDScreen"
+        component={DnDScreen}
         options={{tabBarLabel: 'Drag&Drop'}}
       />
     </Tab.Navigator>

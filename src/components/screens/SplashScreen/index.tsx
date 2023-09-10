@@ -6,8 +6,6 @@ import Colors from '@constants/colors';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {MainView} from '@components/atoms';
-import FastImage from 'react-native-fast-image';
-import {Logo} from '@assets/images';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Keys} from '@constants/keys';
 

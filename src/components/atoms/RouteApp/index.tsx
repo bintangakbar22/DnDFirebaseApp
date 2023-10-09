@@ -7,7 +7,12 @@ import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {Toast} from 'react-native-toast-message/lib/src/Toast';
 import {ToastContainer} from '../ToastContainer';
 import Colors from '@constants/colors';
-import {LoginScreen, RegisterScreen, SplashScreen} from '@components/screens';
+import {
+  FrontScreen,
+  LoginScreen,
+  RegisterScreen,
+  SplashScreen,
+} from '@components/screens';
 import BottomTabNavigatior from './BottomTab';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Keys} from '@constants/keys';
@@ -28,6 +33,7 @@ export const Navigator: React.FC<NavigatorProps> = () => {
         'SplashScreen',
         'LoginScreen',
         'RegisterScreen',
+        'FrontScreen',
       ];
       const isNotAuthScreen =
         listScreenDontNeetAuth?.includes(currentRouteName);
@@ -48,6 +54,7 @@ export const Navigator: React.FC<NavigatorProps> = () => {
       <Stack.Screen name={'SplashScreen'} component={SplashScreen} />
       <Stack.Screen name={'LoginScreen'} component={LoginScreen} />
       <Stack.Screen name={'RegisterScreen'} component={RegisterScreen} />
+      <Stack.Screen name={'FrontScreen'} component={FrontScreen} />
       <Stack.Screen
         name={'BottomTabNavigator'}
         component={BottomTabNavigatior}
@@ -65,11 +72,6 @@ export const RouteApp = () => {
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
-      <StatusBar
-        translucent
-        barStyle={'dark-content'}
-        backgroundColor={Colors.white}
-      />
       <GestureHandlerRootView style={styles.gestureHandlerStyle}>
         <NavigationContainer>
           <Navigator />

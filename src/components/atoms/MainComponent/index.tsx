@@ -1,6 +1,6 @@
 import React from 'react';
 import {generalStyles} from '@constants/styles';
-import {Text, TextStyle, View, ViewStyle} from 'react-native';
+import {Text, TextStyle, View, ViewStyle, StatusBar} from 'react-native';
 import Fonts from '@constants/fonts';
 import Colors from '@constants/colors';
 
@@ -57,4 +57,14 @@ const MainText: React.FC<MainTextProps & TextStyle> = props => {
   return <Text style={[dynamicStyle, props?.style]}>{children}</Text>;
 };
 
-export {MainView, MainText};
+const TransparentBar = () => {
+  return (
+    <StatusBar
+      translucent
+      barStyle={'dark-content'}
+      backgroundColor={'transparent'}
+    />
+  );
+};
+
+export {MainView, MainText, TransparentBar};

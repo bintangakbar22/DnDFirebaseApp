@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {showErrorToast, showSuccessToast} from '@constants/functional';
 import {Keys} from '@constants/keys';
-import {
+import firebase, {
   FirebaseUserCredential,
   IPayloadAuth,
   loginWithEmailPassword,
@@ -26,6 +26,10 @@ const useLoginScreen = () => {
     useNavigation<StackNavigationProp<ParamList, 'LoginScreen'>>();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [phoneNumber, setPhoneNumber] = useState<string>('+62');
+  const [otp, setOTP] = useState<string>('');
+  const [verificationCode, setVerificationCOde] = useState<string>('');
+  const [confirm, setConfirm] = useState<any>(null);
 
   const _handlerLogin = useCallback(async (values: IPayloadAuth) => {
     setIsLoading(true);
@@ -58,12 +62,48 @@ const useLoginScreen = () => {
     navigation.navigate('RegisterScreen');
   };
 
+  const _handlerSendOTP = async () => {
+    try {
+      await firebase
+        .auth()
+        .signInWithPhoneNumber(phoneNumber)
+        .then(confirmResult => {
+          setConfirm(confirmResult);
+        })
+        .catch(error => console.error(error));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const verifyCode = async (code: string) => {
+    try {
+      await confirm
+        .confirm(code)
+        .then((res: FirebaseUserCredential) => _handlerSetProfile(res))
+        .catch((_: Error) => showErrorToast(_?.message))
+        .finally(() => setIsLoading(false));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return {
     loginValidation,
     _handlerLogin,
     _handlerNavigateToRegistration,
     _handlerWithGoogle,
     isLoading,
+    phoneNumber,
+    setPhoneNumber,
+    otp,
+    setOTP,
+    _handlerSendOTP,
+    verificationCode,
+    setVerificationCOde,
+    confirm,
+    setConfirm,
+    verifyCode,
   };
 };
 

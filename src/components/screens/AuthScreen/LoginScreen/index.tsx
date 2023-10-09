@@ -1,4 +1,10 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  ScrollView,
+} from 'react-native';
 import React from 'react';
 import Fonts from '@constants/fonts';
 import Colors from '@constants/colors';
@@ -9,70 +15,78 @@ import {
   MainText,
   MainView,
 } from '@components/atoms';
-import {Formik} from 'formik';
 import {useLoginScreen} from './useLoginScreen';
 import {GoogleSigninButton} from 'react-native-google-signin';
 
 const LoginScreen = () => {
   const {
-    loginValidation,
-    _handlerLogin,
     _handlerNavigateToRegistration,
     _handlerWithGoogle,
     isLoading,
+    phoneNumber,
+    setPhoneNumber,
+    otp,
+    setOTP,
+    _handlerSendOTP,
+    confirm,
+    verifyCode,
   } = useLoginScreen();
 
   return (
     <View style={styles.container}>
-      <MainView flexDirection="row" alignItems="center">
-        <Text style={styles.title}>DnD App</Text>
-      </MainView>
-      <Text style={styles.welcomeTitle}>
-        {`Masuk atau buat akun \n untuk memulai`}
-      </Text>
-      <Formik
-        initialValues={{email: '', password: ''}}
-        validationSchema={loginValidation}
-        onSubmit={values => _handlerLogin(values)}>
-        {({handleChange, handleSubmit, values, errors}) => (
-          <MainView marginVertical={32} padding={16}>
-            <MainView marginBottom={32}>
-              <Input
-                icon={'email-outline'}
-                isEmail
-                placeholder="masukan email anda"
-                value={values.email}
-                onChangeText={handleChange('email')}
-                error={errors.email}
-              />
-              <Input
-                icon={'lock-outline'}
-                placeholder="masukan password anda"
-                value={values.password}
-                onChangeText={handleChange('password')}
-                error={errors.password}
-                secureTextEntry
-                isPassword
-              />
-            </MainView>
-            <Button label="Masuk" action={handleSubmit} />
-          </MainView>
-        )}
-      </Formik>
-      <GoogleSigninButton
-        style={styles.googleButton}
-        size={GoogleSigninButton.Size.Wide}
-        color={GoogleSigninButton.Color.Dark}
-        onPress={_handlerWithGoogle}
-      />
+      <ScrollView contentContainerStyle={styles.sv}>
+        <MainView flexDirection="row" alignItems="center">
+          <Text style={styles.title}>DnD App</Text>
+        </MainView>
+        <Text style={styles.welcomeTitle}>
+          {`Masuk atau buat akun \n untuk memulai`}
+        </Text>
 
-      <TouchableOpacity onPress={_handlerNavigateToRegistration}>
-        <MainText>
-          {`belum punya akun? registrasi`}{' '}
-          <MainText color={Colors.danger.base}>di sini</MainText>
-        </MainText>
-      </TouchableOpacity>
-      {isLoading ? <LoadingIndicator /> : null}
+        <MainView marginVertical={32}>
+          {!confirm ? (
+            <Input
+              icon={'phone'}
+              placeholder="masukan no hp anda"
+              value={phoneNumber}
+              onChangeText={setPhoneNumber}
+              error={''}
+            />
+          ) : (
+            <Input
+              icon={'phone'}
+              placeholder="masukan otp"
+              value={otp}
+              onChangeText={setOTP}
+              error={''}
+            />
+          )}
+          <Button
+            label="Masuk"
+            action={async () => {
+              try {
+                if (!confirm) {
+                  _handlerSendOTP();
+                  return;
+                }
+                await verifyCode(otp);
+              } catch (error) {}
+            }}
+          />
+        </MainView>
+        <GoogleSigninButton
+          style={styles.googleButton}
+          size={GoogleSigninButton.Size.Wide}
+          color={GoogleSigninButton.Color.Dark}
+          onPress={_handlerWithGoogle}
+        />
+        <TouchableOpacity onPress={_handlerNavigateToRegistration}>
+          <MainText>
+            {`belum punya akun? registrasi`}{' '}
+            <MainText color={Colors.danger.base}>di sini</MainText>
+          </MainText>
+        </TouchableOpacity>
+        {isLoading ? <LoadingIndicator /> : null}
+      </ScrollView>
     </View>
   );
 };
@@ -86,6 +100,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
+  },
+  sv: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   title: {
     fontFamily: Fonts.SemiBoldPoppins,

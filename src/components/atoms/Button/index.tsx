@@ -75,7 +75,11 @@ const Button = ({
         ).container,
         style,
       ]}>
-      {iconLeft && <MainView marginRight={10}>{iconLeft}</MainView>}
+      {iconLeft && (
+        <MainView marginRight={10} backgroundColor={background}>
+          {iconLeft}
+        </MainView>
+      )}
       {icon && <Image source={icon} style={styles.icon} />}
       <Text
         style={[
@@ -161,10 +165,10 @@ const styleProps = (
       alignItems: 'center',
       justifyContent: 'center',
       fontSize: fontSize,
-      fontWeight: '600',
-      fontFamily: 'Poppins-SemiBold',
+      fontWeight: '700',
+      fontFamily: 'Roboto-SemiBold',
       color: isDisabled
-        ? Colors.primary.dark1
+        ? Colors.dark.neutral100
         : outline || primaryLight
         ? Colors.primary.base
         : danger

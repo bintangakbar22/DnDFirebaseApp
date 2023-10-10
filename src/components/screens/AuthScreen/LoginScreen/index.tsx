@@ -1,4 +1,11 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  ScrollView,
+  ImageBackground,
+} from 'react-native';
 import React from 'react';
 import Fonts from '@constants/fonts';
 import Colors from '@constants/colors';
@@ -9,70 +16,60 @@ import {
   MainText,
   MainView,
 } from '@components/atoms';
-import {Formik} from 'formik';
 import {useLoginScreen} from './useLoginScreen';
-import {GoogleSigninButton} from 'react-native-google-signin';
+import {Background} from '@assets/images';
+import {generalStyles} from '@constants/styles';
+import {Formik} from 'formik';
 
 const LoginScreen = () => {
-  const {
-    loginValidation,
-    _handlerLogin,
-    _handlerNavigateToRegistration,
-    _handlerWithGoogle,
-    isLoading,
-  } = useLoginScreen();
+  const {_handlerNavigateToReset, isLoading, _handlerLogin, loginValidation} =
+    useLoginScreen();
 
   return (
     <View style={styles.container}>
-      <MainView flexDirection="row" alignItems="center">
-        <Text style={styles.title}>DnD App</Text>
-      </MainView>
-      <Text style={styles.welcomeTitle}>
-        {`Masuk atau buat akun \n untuk memulai`}
-      </Text>
-      <Formik
-        initialValues={{email: '', password: ''}}
-        validationSchema={loginValidation}
-        onSubmit={values => _handlerLogin(values)}>
-        {({handleChange, handleSubmit, values, errors}) => (
-          <MainView marginVertical={32} padding={16}>
-            <MainView marginBottom={32}>
-              <Input
-                icon={'email-outline'}
-                isEmail
-                placeholder="masukan email anda"
-                value={values.email}
-                onChangeText={handleChange('email')}
-                error={errors.email}
-              />
-              <Input
-                icon={'lock-outline'}
-                placeholder="masukan password anda"
-                value={values.password}
-                onChangeText={handleChange('password')}
-                error={errors.password}
-                secureTextEntry
-                isPassword
-              />
-            </MainView>
-            <Button label="Masuk" action={handleSubmit} />
-          </MainView>
-        )}
-      </Formik>
-      <GoogleSigninButton
-        style={styles.googleButton}
-        size={GoogleSigninButton.Size.Wide}
-        color={GoogleSigninButton.Color.Dark}
-        onPress={_handlerWithGoogle}
-      />
-
-      <TouchableOpacity onPress={_handlerNavigateToRegistration}>
-        <MainText>
-          {`belum punya akun? registrasi`}{' '}
-          <MainText color={Colors.danger.base}>di sini</MainText>
-        </MainText>
-      </TouchableOpacity>
-      {isLoading ? <LoadingIndicator /> : null}
+      <ImageBackground
+        source={Background}
+        style={generalStyles.contentFlexWhite}>
+        <ScrollView contentContainerStyle={styles.sv}>
+          <Text style={styles.title}>Masuk Akun</Text>
+          <Text style={styles.welcomeTitle}>
+            Silahkan login dengan ID Marking & Password Anda
+          </Text>
+          <Formik
+            initialValues={{idMarking: '', password: ''}}
+            validationSchema={loginValidation}
+            onSubmit={values => _handlerLogin(values)}>
+            {({handleChange, handleSubmit, values, errors}) => (
+              <MainView marginVertical={32}>
+                <Input
+                  label="ID Marking"
+                  placeholder="123/WC/"
+                  value={values?.idMarking}
+                  onChangeText={handleChange('idMarking')}
+                  error={errors?.idMarking}
+                />
+                <Input
+                  label="Password"
+                  placeholder=""
+                  value={values?.password}
+                  onChangeText={handleChange('password')}
+                  error={errors?.password}
+                  secureTextEntry
+                />
+                <Button
+                  label="Sign In"
+                  action={handleSubmit}
+                  style={styles.signInButton}
+                />
+              </MainView>
+            )}
+          </Formik>
+          <TouchableOpacity onPress={_handlerNavigateToReset}>
+            <MainText style={styles.resetPasswordText}>Reset Password</MainText>
+          </TouchableOpacity>
+          {isLoading ? <LoadingIndicator /> : null}
+        </ScrollView>
+      </ImageBackground>
     </View>
   );
 };
@@ -83,28 +80,35 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
+  },
+  sv: {
+    flexGrow: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    padding: 16,
+    padding: 25,
+  },
+  signInButton: {
+    marginTop: 25,
+    marginBottom: 100,
+    width: '75%',
+    alignSelf: 'center',
   },
   title: {
-    fontFamily: Fonts.SemiBoldPoppins,
-    fontWeight: '800',
-    fontSize: 20,
-    color: Colors.black,
-    textTransform: 'uppercase',
-    lineHeight: 24,
-    textAlign: 'center',
-    paddingLeft: 8,
+    fontFamily: Fonts.SemiBoldMontserrat,
+    fontWeight: '700',
+    fontSize: 28,
+    color: Colors.dark.neutral100,
+    lineHeight: 32,
+    textAlign: 'left',
   },
   welcomeTitle: {
-    fontFamily: Fonts.BoldPoppins,
-    fontWeight: '800',
-    fontSize: 28,
-    color: Colors.black,
-    lineHeight: 32,
-    textAlign: 'center',
-    paddingTop: 32,
+    fontFamily: Fonts.RegularRoboto,
+    fontWeight: '400',
+    fontSize: 17,
+    color: Colors.dark.neutral100,
+    lineHeight: 24,
+    textAlign: 'left',
+    alignSelf: 'flex-start',
+    paddingTop: 15,
   },
   titleName: {
     fontFamily: Fonts.RegularPoppins,
@@ -118,11 +122,12 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
   },
-  googleButton: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 12,
-    height: 60,
-    marginBottom: 16,
+  resetPasswordText: {
+    fontFamily: Fonts.BoldRoboto,
+    color: Colors.secondary.light1,
+    fontWeight: '700',
+    fontSize: 13,
+    lineHeight: 15.23,
+    textAlign: 'center',
   },
 });

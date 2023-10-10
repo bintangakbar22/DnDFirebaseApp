@@ -13,26 +13,26 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {useCallback, useState} from 'react';
 import * as yup from 'yup';
 
-interface IPayloadAuth {
-  idMarking: string;
-  password: string;
+interface IPayloadReset {
+  email: string;
 }
 
 const loginValidation = yup.object().shape({
-  idMarking: yup.string().required('ID Marking is Required!'),
-  password: yup.string().required('Password is Required!'),
+  email: yup.string().email().required('Email is Required!'),
 });
 
-const useLoginScreen = () => {
+const useResetPasswordScreen = () => {
   const navigation =
-    useNavigation<StackNavigationProp<ParamList, 'LoginScreen'>>();
+    useNavigation<StackNavigationProp<ParamList, 'ResetPasswordScreen'>>();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isValidReset, setIsValidReset] = useState<boolean>(false);
   const [verificationCode, setVerificationCOde] = useState<string>('');
   const [confirm, setConfirm] = useState<any>(null);
 
-  const _handlerLogin = useCallback(async (values: IPayloadAuth) => {
-    setIsLoading(true);
+  const _handlerReset = useCallback(async (values: IPayloadReset) => {
+    setIsValidReset(true);
+    //setIsLoading(true);
     // loginWithEmailPassword(values)
     //   .then((res: FirebaseUserCredential) => _handlerSetProfile(res))
     //   .catch((_: Error) => showErrorToast(_?.message))
@@ -58,8 +58,8 @@ const useLoginScreen = () => {
     navigation.replace('BottomTabNavigator');
   };
 
-  const _handlerNavigateToReset = () => {
-    navigation.navigate('ResetPasswordScreen');
+  const _handlerNavigateToLogin = () => {
+    navigation.navigate('LoginScreen');
   };
 
   const verifyCode = async (code: string) => {
@@ -76,8 +76,8 @@ const useLoginScreen = () => {
 
   return {
     loginValidation,
-    _handlerLogin,
-    _handlerNavigateToReset,
+    _handlerReset,
+    _handlerNavigateToLogin,
     _handlerWithGoogle,
     isLoading,
     verificationCode,
@@ -85,7 +85,9 @@ const useLoginScreen = () => {
     confirm,
     setConfirm,
     verifyCode,
+    isValidReset,
+    setIsValidReset,
   };
 };
 
-export {useLoginScreen};
+export {useResetPasswordScreen};

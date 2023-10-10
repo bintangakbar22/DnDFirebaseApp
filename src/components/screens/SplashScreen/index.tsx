@@ -1,13 +1,13 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import {StyleSheet, Text} from 'react-native';
+import {StyleSheet, View, Image} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Fonts from '@constants/fonts';
 import Colors from '@constants/colors';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {MainView} from '@components/atoms';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Keys} from '@constants/keys';
+import {LOGO} from '@assets/images';
+import {TransparentBar} from '@components/atoms';
 
 const SplashScreen = () => {
   const navigation =
@@ -32,17 +32,17 @@ const SplashScreen = () => {
         navigation.replace('BottomTabNavigator');
         return;
       }
-      navigation.replace('LoginScreen');
-    }, 1000);
+      navigation.replace('FrontScreen');
+    }, 3000);
 
     return () => clearTimeout(timeout);
   }, [alreadyLogged]);
 
   return (
-    <MainView style={styles.container}>
-      <Text style={styles.title}>Dnd App</Text>
-      <Text style={styles.titleName}>[Muhammad Bintang Al Akbar]</Text>
-    </MainView>
+    <View style={styles.container}>
+      <TransparentBar />
+      <Image source={LOGO} />
+    </View>
   );
 };
 
@@ -53,7 +53,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.white,
     justifyContent: 'center',
-    flexDirection: 'column',
     alignItems: 'center',
   },
   title: {

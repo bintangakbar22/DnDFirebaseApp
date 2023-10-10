@@ -48,7 +48,7 @@ const Input = ({
         style={{
           ...styles.Content,
           borderColor: error
-            ? Colors.danger.base
+            ? Colors.secondary.light1
             : isActive
             ? Colors.black
             : Colors.disabled.text,
@@ -114,9 +114,11 @@ const styles = StyleSheet.create({
   label: {
     width: '100%',
     alignSelf: 'flex-start',
-    marginBottom: 8,
-    fontFamily: Fonts.BoldPoppins,
-    fontWeight: '800',
+    marginBottom: 2,
+    fontFamily: Fonts.RegularRoboto,
+    fontWeight: '400',
+    fontSize: 17,
+    lineHeight: 24,
   },
   iconRight: {justifyContent: 'center'},
   iconLeft: {
@@ -126,7 +128,7 @@ const styles = StyleSheet.create({
     // alignItems: 'center',
   },
   Content: {
-    backgroundColor: Colors.white,
+    backgroundColor: '#F1F1F2',
     height: 45,
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -148,13 +150,15 @@ const styles = StyleSheet.create({
     color: Colors.black,
     marginLeft: 4,
     letterSpacing: 0.25,
+    backgroundColor: '#F1F1F2',
   },
   Text: {
-    fontFamily: Fonts.RegularPoppins,
-    fontSize: 10,
-    color: Colors.danger.base,
-    textAlign: 'right',
-    marginVertical: 3,
+    fontFamily: Fonts.RegularRoboto,
+    fontSize: 13,
+    fontWeight: '400',
+    color: Colors.secondary.light1,
+    textAlign: 'left',
+    marginVertical: 2,
     width: '100%',
   },
 });

@@ -1,4 +1,4 @@
-import {firebase} from '@react-native-firebase/app';
+import firebase from '@react-native-firebase/app';
 import {GoogleSignin} from 'react-native-google-signin';
 
 export interface IPayloadAuth {

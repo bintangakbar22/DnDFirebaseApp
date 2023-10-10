@@ -89,31 +89,32 @@ export const Text: React.FC<TextProps & TextStyle> = props => {
     fontSize,
     type,
     family,
+    fontStyle,
     style,
     ...rest
   } = props;
 
   const dynamicStyle: TextStyle = {
-    ...(props?.family === 'Roboto' && props?.fontStyle === 'Bold'
+    ...(family === 'Roboto' && fontStyle === 'Bold'
       ? styles.bold
-      : props?.family === 'Roboto' && props?.fontStyle === 'BoldItalic'
+      : family === 'Roboto' && fontStyle === 'BoldItalic'
       ? styles.boldItalic
-      : props?.family === 'Roboto' && props?.fontStyle === 'Italic'
+      : family === 'Roboto' && fontStyle === 'Italic'
       ? styles.italic
-      : props?.family === 'Roboto' && props?.fontStyle === 'SemiBold'
+      : family === 'Roboto' && fontStyle === 'SemiBold'
       ? styles.semiBold
-      : props?.family === 'Montserrat' && props?.fontStyle === 'Bold'
+      : family === 'Montserrat' && fontStyle === 'Bold'
       ? styles.montserratBold
-      : props?.family === 'Montserrat' && props?.fontStyle === 'BoldItalic'
+      : family === 'Montserrat' && fontStyle === 'BoldItalic'
       ? styles.montserratBoldItalic
-      : props?.family === 'Montserrat' && props?.fontStyle === 'Italic'
+      : family === 'Montserrat' && fontStyle === 'Italic'
       ? styles.montserratItalic
-      : props?.family === 'Montserrat' && props?.fontStyle === 'SemiBold'
+      : family === 'Montserrat' && fontStyle === 'SemiBold'
       ? styles.montserratSemiBold
-      : props?.family === 'Montserrat'
+      : family === 'Montserrat'
       ? styles.montserratRegular
       : styles.default),
-    fontSize: fontSize ? fontSize : props?.type === 'body' ? 17 : 13,
+    fontSize: fontSize ? fontSize : type === 'body' ? 17 : 13,
     color: color,
     ...rest,
   };

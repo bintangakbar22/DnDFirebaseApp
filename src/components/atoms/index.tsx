@@ -7,3 +7,4 @@ export * from './LoadingIndicator';
 export * from './Input';
 export * from './PopUp';
 export * from './TransactionCard';
+export * from './Text';

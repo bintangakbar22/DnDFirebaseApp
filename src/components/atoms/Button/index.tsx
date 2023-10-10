@@ -5,7 +5,6 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
-  TouchableOpacityProps,
   TextStyle,
   StyleProp,
 } from 'react-native';
@@ -18,19 +17,31 @@ export type ButtonProps = {
   background?: string;
   action?: () => void;
   top?: number;
-  iconLeft?: any;
+  type?:
+    | 'Primary'
+    | 'Primary-Hover'
+    | 'Primary-Active'
+    | 'Secondary'
+    | 'Secondary-Hover'
+    | 'Secondary-Active';
+  outline?: boolean;
+  imageIcon?: any;
   bottom?: number;
   borderWidth?: number;
   borderColor?: string;
   isDisabled?: boolean;
-  style?: TouchableOpacityProps['style'];
-  outline?: boolean;
-  danger?: boolean;
-  success?: boolean;
-  primaryLight?: boolean;
   fontSize?: number;
   customDisabled?: boolean;
   textStyle?: StyleProp<TextStyle>;
+  font?:
+    | 'Roboto-Semibold'
+    | 'Roboto-Bold'
+    | 'Roboto-Regular'
+    | 'Roboto-BoldItalic'
+    | 'Montserrat-Semibold'
+    | 'Montserrat-Bold'
+    | 'Montserrat-Regular'
+    | 'Montserrat-BoldItalic';
 };
 
 const Button = ({
@@ -42,17 +53,15 @@ const Button = ({
   top = 0,
   bottom = 0,
   isDisabled = false,
-  outline = false,
-  style = {},
-  danger = false,
-  success = false,
-  primaryLight = false,
   fontSize = 16,
   borderColor = Colors.primary.base,
   borderWidth = 0,
   customDisabled = false,
-  iconLeft,
+  imageIcon,
   textStyle,
+  type,
+  outline = false,
+  font = 'Roboto-Regular',
 }: ButtonProps) => {
   return (
     <TouchableOpacity
@@ -65,22 +74,20 @@ const Button = ({
           bottom,
           background,
           color,
-          outline,
-          danger,
-          success,
-          primaryLight,
           fontSize,
           borderColor,
           borderWidth,
+          type,
+          outline,
+          font,
         ).container,
-        style,
       ]}>
-      {iconLeft && (
+      {icon && (
         <MainView marginRight={10} backgroundColor={background}>
-          {iconLeft}
+          {icon}
         </MainView>
       )}
-      {icon && <Image source={icon} style={styles.icon} />}
+      {imageIcon && <Image source={icon} style={styles.icon} />}
       <Text
         style={[
           styleProps(
@@ -89,13 +96,12 @@ const Button = ({
             bottom,
             background,
             color,
-            outline,
-            danger,
-            success,
-            primaryLight,
             fontSize,
             borderColor,
             borderWidth,
+            type,
+            outline,
+            font,
           ).text,
           textStyle,
         ]}>
@@ -124,13 +130,28 @@ const styleProps = (
   bottom: number,
   background: string,
   color: string,
-  outline: boolean,
-  danger: boolean,
-  success: boolean,
-  primaryLight: boolean,
   fontSize: number,
   borderColor: string,
   borderWidth: number,
+  type:
+    | 'Primary'
+    | 'Primary-Hover'
+    | 'Primary-Active'
+    | 'Primary-Outline'
+    | 'Secondary'
+    | 'Secondary-Hover'
+    | 'Secondary-Active'
+    | undefined,
+  outline: boolean,
+  font:
+    | 'Roboto-Semibold'
+    | 'Roboto-Bold'
+    | 'Roboto-Regular'
+    | 'Roboto-BoldItalic'
+    | 'Montserrat-Semibold'
+    | 'Montserrat-Bold'
+    | 'Montserrat-Regular'
+    | 'Montserrat-BoldItalic',
 ) =>
   StyleSheet.create({
     container: {
@@ -142,18 +163,24 @@ const styleProps = (
         ? '#F0F0F0'
         : outline
         ? Colors.white
-        : danger
-        ? Colors.danger.light2
-        : success
-        ? Colors.success.light1
-        : primaryLight
-        ? Colors.primary.light3
+        : type === 'Primary'
+        ? Colors.primary.base
+        : type === 'Secondary'
+        ? Colors.secondary.base
+        : type === 'Primary-Hover'
+        ? Colors.primary.light2
+        : type === 'Secondary-Hover' || type === 'Secondary-Active'
+        ? Colors.secondary.light2
+        : type === 'Primary-Active'
+        ? Colors.primary.light1
         : background,
       borderColor: isDisabled
         ? 'transparent'
-        : outline
+        : outline || type === 'Primary-Hover'
         ? Colors.primary.base
-        : borderColor
+        : type === 'Secondary-Active'
+        ? Colors.secondary.light2
+        : Colors.secondary.base
         ? borderColor
         : '#C2185B',
       marginTop: top,
@@ -166,15 +193,11 @@ const styleProps = (
       justifyContent: 'center',
       fontSize: fontSize,
       fontWeight: '700',
-      fontFamily: 'Roboto-SemiBold',
+      fontFamily: font,
       color: isDisabled
         ? Colors.dark.neutral100
-        : outline || primaryLight
+        : outline
         ? Colors.primary.base
-        : danger
-        ? Colors.danger.base
-        : success
-        ? Colors.white
         : color,
     },
   });

@@ -56,11 +56,7 @@ const LoginScreen = () => {
                   error={errors?.password}
                   secureTextEntry
                 />
-                <Button
-                  label="Sign In"
-                  action={handleSubmit}
-                  style={styles.signInButton}
-                />
+                <Button label="Sign In" action={handleSubmit} />
               </MainView>
             )}
           </Formik>

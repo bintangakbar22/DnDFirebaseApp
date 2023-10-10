@@ -31,7 +31,8 @@ const SuccessResetBackground = (props: Iprops) => {
         <Button
           label="Halaman Login"
           action={props?.action}
-          style={styles.goToLoginButton}
+          top={50}
+          font={'Roboto-Semibold'}
         />
       </View>
     </Modal>
@@ -73,7 +74,8 @@ const ResetPasswordScreen = () => {
                 <Button
                   label="Reset Password"
                   action={handleSubmit}
-                  style={styles.signInButton}
+                  top={25}
+                  bottom={100}
                 />
               </MainView>
             )}

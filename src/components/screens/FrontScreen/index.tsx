@@ -39,14 +39,16 @@ const FrontScreen = () => {
               Semua kebutuhan impor anda berada dalam genggaman
             </Text>
             <View style={styles.buttonContainer}>
-              <Button label="Sign In" action={_handlerNavigateToLogin} />
+              <Button
+                label="Sign In"
+                action={_handlerNavigateToLogin}
+                outline
+              />
               <Button
                 label="Login with Apple ID"
-                style={styles.buttonApple}
                 background={Colors.dark.neutral100}
-                iconLeft={
-                  <Icon name={'apple'} size={22} color={Colors.white} />
-                }
+                top={15}
+                icon={<Icon name={'apple'} size={22} color={Colors.white} />}
               />
             </View>
           </View>

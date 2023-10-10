@@ -5,6 +5,7 @@ import {
   ImageBackground,
   View,
   Image,
+  TouchableOpacity,
 } from 'react-native';
 import React from 'react';
 import {Button, MainView, TransparentBar} from '@components/atoms';
@@ -12,8 +13,12 @@ import {Background, LOGO} from '@assets/images';
 import {generalStyles} from '@constants/styles';
 import Fonts from '@constants/fonts';
 import Colors from '@constants/colors';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useFrontScreen} from './useFrontScreen';
 
 const FrontScreen = () => {
+  const {_handlerNavigateToRegistration, _handlerNavigateToLogin} =
+    useFrontScreen();
   return (
     <MainView flex={1}>
       <TransparentBar />
@@ -34,8 +39,22 @@ const FrontScreen = () => {
               Semua kebutuhan impor anda berada dalam genggaman
             </Text>
             <View style={styles.buttonContainer}>
-              <Button label="Sign In" />
+              <Button label="Sign In" action={_handlerNavigateToLogin} />
+              <Button
+                label="Login with Apple ID"
+                style={styles.buttonApple}
+                background={Colors.dark.neutral100}
+                iconLeft={
+                  <Icon name={'apple'} size={22} color={Colors.white} />
+                }
+              />
             </View>
+          </View>
+          <View style={styles.bottomContainer}>
+            <Text style={styles.notRegisteredText}>Belum terdaftar?</Text>
+            <TouchableOpacity onPress={_handlerNavigateToRegistration}>
+              <Text style={styles.createText}>Buat Marking Code Sekarang</Text>
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </ImageBackground>
@@ -50,9 +69,10 @@ const styles = StyleSheet.create({
     padding: 25,
     flexDirection: 'column',
     justifyContent: 'center',
+    flexGrow: 1,
   },
   middleContainer: {
-    marginVertical: 100,
+    marginVertical: 80,
   },
   buttonContainer: {
     marginTop: 38,
@@ -73,5 +93,27 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     lineHeight: 24,
     paddingTop: 15,
+  },
+  buttonApple: {
+    backgroundColor: Colors.dark.neutral100,
+    marginTop: 15,
+  },
+  bottomContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  notRegisteredText: {
+    fontFamily: Fonts.BoldRoboto,
+    color: Colors.dark.neutral60,
+    fontWeight: '700',
+    fontSize: 13,
+    lineHeight: 15.23,
+  },
+  createText: {
+    fontFamily: Fonts.BoldRoboto,
+    color: Colors.secondary.light1,
+    fontWeight: '700',
+    fontSize: 13,
+    lineHeight: 15.23,
   },
 });

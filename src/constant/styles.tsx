@@ -4,11 +4,10 @@ import Fonts from './fonts';
 
 export const generalStyles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.white,
+    // backgroundColor: Colors.white,
   },
   contentContainerStyle: {
     flexGrow: 1,
-    paddingBottom: 200,
   },
   contentFlex: {flex: 1},
   row: {flexDirection: 'row'},

@@ -11,6 +11,7 @@ import {
   FrontScreen,
   LoginScreen,
   RegisterScreen,
+  ResetPasswordScreen,
   SplashScreen,
 } from '@components/screens';
 import BottomTabNavigatior from './BottomTab';
@@ -34,6 +35,7 @@ export const Navigator: React.FC<NavigatorProps> = () => {
         'LoginScreen',
         'RegisterScreen',
         'FrontScreen',
+        'ResetPasswordScreen',
       ];
       const isNotAuthScreen =
         listScreenDontNeetAuth?.includes(currentRouteName);
@@ -55,6 +57,10 @@ export const Navigator: React.FC<NavigatorProps> = () => {
       <Stack.Screen name={'LoginScreen'} component={LoginScreen} />
       <Stack.Screen name={'RegisterScreen'} component={RegisterScreen} />
       <Stack.Screen name={'FrontScreen'} component={FrontScreen} />
+      <Stack.Screen
+        name={'ResetPasswordScreen'}
+        component={ResetPasswordScreen}
+      />
       <Stack.Screen
         name={'BottomTabNavigator'}
         component={BottomTabNavigatior}

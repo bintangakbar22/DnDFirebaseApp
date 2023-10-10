@@ -20,4 +20,5 @@ type ParamList = {
   TopUpScreen: TopUpParam;
   TransactionScreen: TransactionParam;
   FrontScreen: FrontScreenParam;
+  ResetPasswordScreen: ResetPasswordParam;
 };

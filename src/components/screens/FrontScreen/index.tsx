@@ -8,7 +8,12 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React from 'react';
-import {Button, MainView, TransparentBar} from '@components/atoms';
+import {
+  Button,
+  MainView,
+  TransparentBar,
+  Text as CustomText,
+} from '@components/atoms';
 import {Background, LOGO} from '@assets/images';
 import {generalStyles} from '@constants/styles';
 import Fonts from '@constants/fonts';
@@ -32,9 +37,13 @@ const FrontScreen = () => {
           ]}>
           <Image source={LOGO} style={styles.logo} />
           <View style={styles.middleContainer}>
-            <Text style={styles.welcomeText}>
+            <CustomText
+              style={styles.welcomeText}
+              fontSize={26}
+              fontWeight="700"
+              family={'Montserrat'}>
               Selamat Datang di Wilopocargo Mobile
-            </Text>
+            </CustomText>
             <Text style={styles.secondText}>
               Semua kebutuhan impor anda berada dalam genggaman
             </Text>
@@ -81,10 +90,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 38,
   },
   welcomeText: {
-    fontFamily: Fonts.RegularMontserrat,
-    color: Colors.dark.neutral100,
     fontWeight: '700',
-    fontSize: 26,
     textAlign: 'left',
   },
   secondText: {

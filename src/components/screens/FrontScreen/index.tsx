@@ -42,7 +42,7 @@ const FrontScreen = () => {
               <Button
                 label="Sign In"
                 action={_handlerNavigateToLogin}
-                outline
+                type={'Primary'}
               />
               <Button
                 label="Login with Apple ID"
